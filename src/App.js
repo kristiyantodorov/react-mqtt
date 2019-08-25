@@ -19,10 +19,8 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <p>Bed:</p>
           <Button name="ON" topic="/bedroom/killall" payload="1"/>
-          <Button name="OFF" topic="/bedroom/killall" payload="0"/>
           <p>Mirror:</p>
           <Button name="ON" topic="/bedroom/mirror/toggle" payload="1"/>
-          <Button name="OFF" topic="/bedroom/mirror/toggle" payload="0"/>
           <p>{this.state.greeting}</p>
         </header>
       </div>
