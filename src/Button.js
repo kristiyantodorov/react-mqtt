@@ -1,26 +1,26 @@
 import React from 'react';
-import Connection from './Mqtt'
 
 class Button extends React.Component {
     constructor(props) {
         super(props)
         this.led = false;
-        this.conn = new Connection();
-        this.turnOnHandle = this.turnOn.bind(this)
-        this.turnOffHandle = this.turnOff.bind(this)
+        this.state = {
+            "topic": this.props.topic,
+            "payload": this.props.payload
+        }
+        this.clickHandle = this.publish.bind(this)
     }
-    turnOn() {
-        this.conn.turnOn();
-    }
-    turnOff() {
-        this.conn.turnOff();
+
+    publish(topic, payload) {
+        fetch(`/api/bedroom?topic=${this.state.topic}&payload=${this.state.payload}`)
+            .then(response => response.json())
+            .then(state => this.setState(state));
     }
 
     render() {
         return ( 
         <div>
-        <button type="button" onClick={this.turnOffHandle}>Turn OFF</button>
-        <button type="button" onClick={this.turnOnHandle}>Turn ON</button>
+        <button type="button" onClick={this.clickHandle}>{this.props.name}</button>
         </div>
         );
     }
