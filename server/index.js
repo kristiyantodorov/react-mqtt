@@ -7,7 +7,7 @@ class Connection {
     constructor() {
         this.client = mqtt.connect('mqtt://192.168.0.124:1883')
         this.client.on('connect', () => {
-          console.log("Connected")
+          console.log("Connected");
         })
     }
     publish(topic, payload) {
@@ -31,5 +31,5 @@ app.get('/api/bedroom', (req, res) => {
 
 
 app.listen(3001, () =>
-  console.log('Express server is running on localhost:3001')
+  console.log('Express server is running on localhost:3000')
 );

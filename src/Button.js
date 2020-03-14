@@ -1,10 +1,9 @@
 import React from 'react';
-import Switch from "react-switch";
+import Switch from "@material-ui/core/Switch"
 
 class Button extends React.Component {
     constructor(props) {
         super(props)
-        this.led = false;
         this.state = {
             "topic": this.props.topic,
             "payload": this.props.payload,
@@ -20,27 +19,31 @@ class Button extends React.Component {
             .then(state => this.setState(state));
     }
 
-    handleChange(checked) {
-        console.log(checked)
-        this.setState({ checked });
-        if( checked ) {
-            this.setState({
-                "payload": "1"
-            });
-        }
-        else {
-            this.setState({
-                "payload": "0"
-            });
-        }
-        console.log(this.state)
-        this.publish(this.state.topic, this.state.payload);
+    handleChange() {
+        this.setState(prevState => ({
+            checked: !prevState.checked
+        }),
+        () => {
+            if ( this.state.checked ) {
+                this.setState({
+                    payload: "1"
+                }, () => {
+                    this.publish(this.state.topic, this.state.payload);
+                })
+            } else {
+                this.setState({
+                    payload: "0"
+                }, () => {
+                    this.publish(this.state.topic, this.state.payload);
+                })
+            }
+        });
     }
 
     render() {
-        return ( 
+        return (
         <div>
-        <Switch onChange={this.handleChange} checked={this.state.checked} />
+        <Switch onChange={this.handleChange} checked={this.state.checked}/>
         </div>
         );
     }
